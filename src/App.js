@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { io } from "socket.io-client";
+//====================    RECEPCION DE DATOS   ==========================
+const socket = io("http://localhost:8000");
 
+socket.on("connect", () => {});
+socket.on("maestro1/puerto2", (data) => {
+  console.log("received testing", data);
+});
+//=====================================================================
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        onClick={() => {
+          // ENVIO DE DATOS ==================================================
+          socket.emit("from_react", ":v " + Date.now());
+          //==================================================================
+        }}
+      >
+        Enviar
+      </button>
     </div>
   );
 }
