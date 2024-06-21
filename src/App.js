@@ -12,6 +12,7 @@ socket.on("maestro1/puerto2", (data) => {
 //=====================================================================
 function App() {
   const [timestamp, setTimestamp] = useState(0);
+  const [size, setSize] = useState(100); // Estado para el tamaño del cuadro
 
   const handleMouseDown = (event) => {
     console.log("Boton_presionado:", true);
@@ -25,8 +26,30 @@ function App() {
     console.log(Date.now() - timestamp);
   };
 
+  const handleInputChange = (event) => {
+    const newSize = event.target.value;
+    setSize(newSize);
+  };
+
   return (
     <div className="App">
+      <input
+        type="number"
+        value={size}
+        onChange={handleInputChange}
+        placeholder="Enter size"
+      />
+      <div
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          backgroundColor: "lightblue",
+          margin: "10px auto",
+        }}
+      >
+        {/* Cuadro cuyo tamaño varía */}
+      </div>
+
       <button
         onClick={(event) => {
           const message = ":v" + Date.now();
